@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3GPP 提案觀測 2025–2026：各公司提案量 × 技術議題</title>
+<meta name="description" content="以 3GPP 官方 TDoc 清單統計 2025–2026 年 RAN1、RAN2、RAN3、SA2 的提案量、技術議題與 6G 動向。">
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--fg:#1f2937;--muted:#5b6472;--line:#e3e8ef;--accent:#2563eb;--old:#c9d3e0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:20px}
+header{background:linear-gradient(120deg,#eef4ff 0%,#f5efff 50%,#fff1f6 100%);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:24px}
+h1{font-size:1.7rem;margin:0 0 8px;font-weight:700}
+h2{font-size:1.2rem;margin:0 0 4px}
+h3{font-size:1rem;margin:16px 0 4px}
+p{margin:6px 0}
+.muted{color:var(--muted);font-size:.88rem}
+.lede{font-size:1.05rem}
+.lede b{color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;border-top:4px solid var(--c)}
+.tile .lbl{font-size:.85rem;color:var(--muted)}
+.tile .big{font-size:2rem;font-weight:700;color:var(--c);font-variant-numeric:tabular-nums}
+.tile .win{font-size:.82rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font:inherit;font-size:.85rem;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.rows{display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.row{display:grid;grid-template-columns:minmax(110px,32%) 1fr;gap:10px;align-items:center}
+.row .name{text-align:right;font-size:.86rem;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bar{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar i{display:block;height:9px;border-radius:3px;min-width:2px}
+.single i{height:16px}
+.legend{font-size:.82rem;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f3f6fa}
+tbody tr:nth-child(even) td{background:#fafbfd}
+.scrollx{overflow-x:auto}
+#themes{border-left:5px solid #7c3aed}#themes h2{color:#6d28d9}
+#leaders{border-left:5px solid #ea580c}#leaders h2{color:#c2410c}
+#companies{border-left:5px solid #0d9488}#companies h2{color:#0f766e}
+#sixg{border-left:5px solid #db2777}#sixg h2{color:#be185d}
+#groups{border-left:5px solid #16a34a}#groups h2{color:#15803d}
+#profile{border-left:5px solid #4f46e5}#profile h2{color:#4338ca}
+#insight{border-left:5px solid #e11d48;background:linear-gradient(180deg,#fff7f9 0%,#fff 160px)}#insight h2{color:#be123c}
+#insight p{font-size:.95rem}
+details{font-size:.88rem;color:var(--muted)}
+summary{cursor:pointer;color:var(--fg);font-weight:600}
+footer{font-size:.82rem;color:var(--muted);text-align:center}
+@media (max-width:560px){.row{grid-template-columns:96px 1fr}h1{font-size:1.35rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>3GPP 提案觀測 2025–2026：各公司提案量 × 技術議題</h1>
+  <p class="lede">2026 年 6G 提案共 <b id="h6g">—</b> 份，是 2025 年的 <b id="hMult">—</b> 倍，佔當年提案的 <b id="hShare">—</b>；5G-Advanced 提案則減少 <b id="h5ga">—</b>。</p>
+  <p class="muted">資料來源：3GPP 官方 FTP 各會議 TDoc 清單（TDoc_List_Meeting_*.xlsx），以 EPO Technology Intelligence Platform（TIP）的 Python 環境下載與整理，2026-11-26 更新。範圍：RAN1、RAN2、RAN3、SA2 在 2025–2026 年的會議。</p>
+</header>
+
+<div class="tiles">
+  <div class="tile" style="--c:#2563eb"><div class="lbl">2026 年有效提案</div><div class="big" id="kTotal">—</div><div class="win">2025 年 <span id="kTotal25">—</span> 份</div></div>
+  <div class="tile" style="--c:#7c3aed"><div class="lbl">2026 年 6G 提案</div><div class="big" id="k6g">—</div><div class="win">2025 年 <span id="k6g25">—</span> 份</div></div>
+  <div class="tile" style="--c:#db2777"><div class="lbl">6G 佔 2026 年提案</div><div class="big" id="kShare">—</div><div class="win">2025 年 <span id="kShare25">—</span></div></div>
+  <div class="tile" style="--c:#ea580c"><div class="lbl">5G-Advanced 提案變化</div><div class="big" id="k5ga">—</div><div class="win">2026 對比 2025</div></div>
+</div>
+
+<section class="card" id="themes">
+  <h2>技術議題：2025 vs 2026 提案數</h2>
+  <p class="muted">依 2026 年提案數排序。每個議題一種顏色，淺色＝2025，深色＝2026。</p>
+  <div class="chips" id="tmode"></div>
+  <p class="muted" id="tnote"></p>
+  <div class="rows" id="themeChart"></div>
+</section>
+
+<section class="card" id="leaders">
+  <h2>熱門議題的領先公司（2026 年）</h2>
+  <p class="muted">提案當量：多家公司共同提案時，依掛名家數平分。</p>
+  <div class="chips" id="leadBar"></div>
+  <div class="rows" id="leadChart"></div>
+</section>
+
+<section class="card" id="companies">
+  <h2>公司提案量：2025 vs 2026（前 25 大）</h2>
+  <p class="muted">淺色＝2025，深色＝2026；單位為提案當量。</p>
+  <div class="chips" id="csort"></div>
+  <div class="rows" id="coChart"></div>
+</section>
+
+<div class="grid2">
+  <section class="card" id="sixg">
+    <h2>6G 提案當量前 20 大</h2>
+    <p class="muted">淺色＝2025，深色＝2026。</p>
+    <div class="rows" id="sixgChart"></div>
+  </section>
+  <section class="card" id="groups">
+    <h2>各工作組提案數</h2>
+    <p class="muted">淺色＝2025，深色＝2026。SA2 因 6G 架構研究大增，RAN3 因 5G-A 收尾而減少。</p>
+    <div class="rows" id="groupChart"></div>
+  </section>
+</div>
+
+<section class="card" id="profile">
+  <h2>前 15 大公司的主力議題（2025–2026 合計）</h2>
+  <p class="muted">各公司提案當量最多的四個議題。「網路架構／QoS」大多來自 SA2，所以幾乎每家都排第一。</p>
+  <div class="scrollx" id="profileTable"></div>
+</section>
+
+<section class="card" id="insight">
+  <h2>觀察與趨勢</h2>
+  <h3>1. 6G 已成為 3GPP 的主軸</h3>
+  <p>2026 年 6G 提案大幅增加、5G-Advanced 明顯減少，標準工作的重心已從 5G-A 收尾轉向 6G 研究。6G 的投入從系統架構（SA2）開始，接著是 AI/ML、感知 ISAC、波形／幀結構、NTN、MIMO 等空中介面議題。</p>
+  <h3>2. 議題正在輪動</h3>
+  <p>Rel-19 的 XR、全雙工 SBFD、IAB／WAB、定位、節能等項目進入收尾，提案快速減少；6G 帶動 ISAC、排程／控制通道、波形與編碼成長。AI/ML 與 NTN 則是從 5G-A 延續到 6G 的長線議題。</p>
+  <h3>3. 公司格局：大廠守 6G、中型廠商擴張</h3>
+  <p>Huawei、Ericsson、Nokia、Samsung、ZTE 總提案量下滑，但仍是 6G 提案的前段班；OPPO、LG、InterDigital、Ofinno、ETRI、中國移動等在 2026 年成長最快。終端廠商多集中在 RAN1／RAN2 的空中介面，網路設備商則同時布局 RAN3 與 SA2。</p>
+  <h3>4. 對專利的意涵</h3>
+  <p>Tdoc 比專利早 1–2 年公開，可視為專利的領先指標。2026–2027 年申請的通訊專利，預期會集中在上述 6G 議題；與其等專利公開，不如直接追蹤各公司在 6G 研究項目的提案方向。</p>
+</section>
+
+<details class="card">
+  <summary>方法與限制</summary>
+  <p>文件範圍：只計討論文件、CR、pCR，排除撤回、保留、主持人／報告人摘要、會議組織與聯絡函。RAN4 因 2026 年清單無法下載而未納入；2026 年已含到 11 月的會議（RAN1、RAN2、RAN3 各 6 場，SA2 各 7 場）。</p>
+  <p>年份：以各會議 TDoc 清單日期欄位的年份中位數判定。議題：依「議程項目描述」再依「標題」比對關鍵字，取第一個符合的議題；無法歸類者列為「其他」（約 16%）。世代：標題或議程含 6G、6GR、IMT-2030 者為 6G；含 maintenance、correction、TEI 者為維護／修正；其餘為 5G-Advanced。</p>
+  <p>公司：依 Source 欄位拆分掛名公司並統一名稱（例如 HiSilicon 併入 Huawei、Datang／CICT 併入 CATT）。提案當量＝每份文件 1 ÷ 掛名家數，加總。提案量反映投入程度，不等於技術品質、採納率或標準必要專利的強度；部分工作組會限制每家公司在每個議程項目的提案數。</p>
+</details>
+
+<footer>資料：3GPP TDoc 清單（公開資料）｜分析環境：EPO Technology Intelligence Platform｜製作：Tae Tsai｜數字為依公開清單自動分類的統計，僅供參考。</footer>
+</div>
+
+<script>
+const DATA = {"groups":[{"group":"RAN1","year":2025,"docs":6825,"meetings":6},{"group":"RAN1","year":2026,"docs":8037,"meetings":6},{"group":"RAN2","year":2025,"docs":6786,"meetings":6},{"group":"RAN2","year":2026,"docs":6945,"meetings":6},{"group":"RAN3","year":2025,"docs":4073,"meetings":6},{"group":"RAN3","year":2026,"docs":2688,"meetings":6},{"group":"SA2","year":2025,"docs":8655,"meetings":7},{"group":"SA2","year":2026,"docs":11109,"meetings":7}],"themes":[{"theme":"AI/ML 智慧化","gen":"5G-Advanced","year":2025,"docs":2357},{"theme":"AI/ML 智慧化","gen":"5G-Advanced","year":2026,"docs":1116},{"theme":"AI/ML 智慧化","gen":"6G","year":2025,"docs":249},{"theme":"AI/ML 智慧化","gen":"6G","year":2026,"docs":1889},{"theme":"AI/ML 智慧化","gen":"維護／修正","year":2025,"docs":256},{"theme":"AI/ML 智慧化","gen":"維護／修正","year":2026,"docs":172},{"theme":"Ambient IoT","gen":"5G-Advanced","year":2025,"docs":1580},{"theme":"Ambient IoT","gen":"5G-Advanced","year":2026,"docs":1090},{"theme":"Ambient IoT","gen":"維護／修正","year":2025,"docs":80},{"theme":"Ambient IoT","gen":"維護／修正","year":2026,"docs":59},{"theme":"MIMO／波束／CSI","gen":"5G-Advanced","year":2025,"docs":1204},{"theme":"MIMO／波束／CSI","gen":"5G-Advanced","year":2026,"docs":1311},{"theme":"MIMO／波束／CSI","gen":"6G","year":2026,"docs":415},{"theme":"MIMO／波束／CSI","gen":"維護／修正","year":2025,"docs":289},{"theme":"MIMO／波束／CSI","gen":"維護／修正","year":2026,"docs":131},{"theme":"NTN 衛星","gen":"5G-Advanced","year":2025,"docs":2143},{"theme":"NTN 衛星","gen":"5G-Advanced","year":2026,"docs":1220},{"theme":"NTN 衛星","gen":"6G","year":2025,"docs":45},{"theme":"NTN 衛星","gen":"6G","year":2026,"docs":555},{"theme":"NTN 衛星","gen":"維護／修正","year":2025,"docs":260},{"theme":"NTN 衛星","gen":"維護／修正","year":2026,"docs":298},{"theme":"RF／RRM 需求","gen":"5G-Advanced","year":2025,"docs":237},{"theme":"RF／RRM 需求","gen":"5G-Advanced","year":2026,"docs":361},{"theme":"RF／RRM 需求","gen":"6G","year":2025,"docs":82},{"theme":"RF／RRM 需求","gen":"6G","year":2026,"docs":102},{"theme":"RF／RRM 需求","gen":"維護／修正","year":2025,"docs":51},{"theme":"RF／RRM 需求","gen":"維護／修正","year":2026,"docs":17},{"theme":"RedCap／IoT","gen":"5G-Advanced","year":2025,"docs":77},{"theme":"RedCap／IoT","gen":"5G-Advanced","year":2026,"docs":44},{"theme":"RedCap／IoT","gen":"6G","year":2025,"docs":2},{"theme":"RedCap／IoT","gen":"6G","year":2026,"docs":158},{"theme":"RedCap／IoT","gen":"維護／修正","year":2025,"docs":14},{"theme":"RedCap／IoT","gen":"維護／修正","year":2026,"docs":10},{"theme":"Sidelink／V2X","gen":"5G-Advanced","year":2025,"docs":143},{"theme":"Sidelink／V2X","gen":"5G-Advanced","year":2026,"docs":20},{"theme":"Sidelink／V2X","gen":"維護／修正","year":2025,"docs":133},{"theme":"Sidelink／V2X","gen":"維護／修正","year":2026,"docs":73},{"theme":"XR／多媒體","gen":"5G-Advanced","year":2025,"docs":929},{"theme":"XR／多媒體","gen":"5G-Advanced","year":2026,"docs":151},{"theme":"XR／多媒體","gen":"維護／修正","year":2025,"docs":133},{"theme":"XR／多媒體","gen":"維護／修正","year":2026,"docs":19},{"theme":"全雙工／SBFD","gen":"5G-Advanced","year":2025,"docs":675},{"theme":"全雙工／SBFD","gen":"6G","year":2026,"docs":1},{"theme":"全雙工／SBFD","gen":"維護／修正","year":2025,"docs":108},{"theme":"全雙工／SBFD","gen":"維護／修正","year":2026,"docs":82},{"theme":"其他","gen":"5G-Advanced","year":2025,"docs":2815},{"theme":"其他","gen":"5G-Advanced","year":2026,"docs":3178},{"theme":"其他","gen":"6G","year":2025,"docs":474},{"theme":"其他","gen":"6G","year":2026,"docs":951},{"theme":"其他","gen":"維護／修正","year":2025,"docs":850},{"theme":"其他","gen":"維護／修正","year":2026,"docs":618},{"theme":"初始接入／同步","gen":"5G-Advanced","year":2025,"docs":365},{"theme":"初始接入／同步","gen":"5G-Advanced","year":2026,"docs":167},{"theme":"初始接入／同步","gen":"6G","year":2025,"docs":8},{"theme":"初始接入／同步","gen":"6G","year":2026,"docs":122},{"theme":"初始接入／同步","gen":"維護／修正","year":2025,"docs":32},{"theme":"初始接入／同步","gen":"維護／修正","year":2026,"docs":22},{"theme":"定位","gen":"5G-Advanced","year":2025,"docs":471},{"theme":"定位","gen":"5G-Advanced","year":2026,"docs":77},{"theme":"定位","gen":"6G","year":2026,"docs":104},{"theme":"定位","gen":"維護／修正","year":2025,"docs":205},{"theme":"定位","gen":"維護／修正","year":2026,"docs":129},{"theme":"感知 ISAC","gen":"5G-Advanced","year":2025,"docs":835},{"theme":"感知 ISAC","gen":"5G-Advanced","year":2026,"docs":1163},{"theme":"感知 ISAC","gen":"6G","year":2025,"docs":1},{"theme":"感知 ISAC","gen":"6G","year":2026,"docs":882},{"theme":"感知 ISAC","gen":"維護／修正","year":2025,"docs":6},{"theme":"感知 ISAC","gen":"維護／修正","year":2026,"docs":19},{"theme":"排程／控制通道","gen":"5G-Advanced","year":2025,"docs":215},{"theme":"排程／控制通道","gen":"5G-Advanced","year":2026,"docs":776},{"theme":"排程／控制通道","gen":"6G","year":2025,"docs":21},{"theme":"排程／控制通道","gen":"6G","year":2026,"docs":332},{"theme":"排程／控制通道","gen":"維護／修正","year":2025,"docs":85},{"theme":"排程／控制通道","gen":"維護／修正","year":2026,"docs":26},{"theme":"控制面／RRC／系統資訊","gen":"5G-Advanced","year":2025,"docs":604},{"theme":"控制面／RRC／系統資訊","gen":"5G-Advanced","year":2026,"docs":483},{"theme":"控制面／RRC／系統資訊","gen":"6G","year":2025,"docs":18},{"theme":"控制面／RRC／系統資訊","gen":"6G","year":2026,"docs":414},{"theme":"控制面／RRC／系統資訊","gen":"維護／修正","year":2025,"docs":303},{"theme":"控制面／RRC／系統資訊","gen":"維護／修正","year":2026,"docs":138},{"theme":"波形／幀結構／編碼","gen":"5G-Advanced","year":2025,"docs":295},{"theme":"波形／幀結構／編碼","gen":"5G-Advanced","year":2026,"docs":784},{"theme":"波形／幀結構／編碼","gen":"6G","year":2025,"docs":403},{"theme":"波形／幀結構／編碼","gen":"6G","year":2026,"docs":807},{"theme":"波形／幀結構／編碼","gen":"維護／修正","year":2025,"docs":25},{"theme":"波形／幀結構／編碼","gen":"維護／修正","year":2026,"docs":24},{"theme":"移動性／LTM","gen":"5G-Advanced","year":2025,"docs":1229},{"theme":"移動性／LTM","gen":"5G-Advanced","year":2026,"docs":820},{"theme":"移動性／LTM","gen":"6G","year":2025,"docs":85},{"theme":"移動性／LTM","gen":"6G","year":2026,"docs":269},{"theme":"移動性／LTM","gen":"維護／修正","year":2025,"docs":270},{"theme":"移動性／LTM","gen":"維護／修正","year":2026,"docs":148},{"theme":"節能／低功耗喚醒","gen":"5G-Advanced","year":2025,"docs":1581},{"theme":"節能／低功耗喚醒","gen":"5G-Advanced","year":2026,"docs":466},{"theme":"節能／低功耗喚醒","gen":"6G","year":2025,"docs":143},{"theme":"節能／低功耗喚醒","gen":"6G","year":2026,"docs":157},{"theme":"節能／低功耗喚醒","gen":"維護／修正","year":2025,"docs":249},{"theme":"節能／低功耗喚醒","gen":"維護／修正","year":2026,"docs":168},{"theme":"網路架構／QoS","gen":"5G-Advanced","year":2025,"docs":1462},{"theme":"網路架構／QoS","gen":"5G-Advanced","year":2026,"docs":853},{"theme":"網路架構／QoS","gen":"6G","year":2025,"docs":1163},{"theme":"網路架構／QoS","gen":"6G","year":2026,"docs":5033},{"theme":"網路架構／QoS","gen":"維護／修正","year":2025,"docs":255},{"theme":"網路架構／QoS","gen":"維護／修正","year":2026,"docs":143},{"theme":"網路部署（WAB／IAB／Femto／中繼）","gen":"5G-Advanced","year":2025,"docs":565},{"theme":"網路部署（WAB／IAB／Femto／中繼）","gen":"5G-Advanced","year":2026,"docs":8},{"theme":"網路部署（WAB／IAB／Femto／中繼）","gen":"維護／修正","year":2025,"docs":123},{"theme":"網路部署（WAB／IAB／Femto／中繼）","gen":"維護／修正","year":2026,"docs":31},{"theme":"頻譜／共存","gen":"5G-Advanced","year":2025,"docs":103},{"theme":"頻譜／共存","gen":"5G-Advanced","year":2026,"docs":84},{"theme":"頻譜／共存","gen":"6G","year":2025,"docs":5},{"theme":"頻譜／共存","gen":"6G","year":2026,"docs":85},{"theme":"頻譜／共存","gen":"維護／修正","year":2025,"docs":28},{"theme":"頻譜／共存","gen":"維護／修正","year":2026,"docs":4}],"companies":[{"company":"Huawei","credit_2025":2363.9,"credit_2026":2117.3,"credit_6g":898.2},{"company":"Ericsson","credit_2025":2061.0,"credit_2026":1625.9,"credit_6g":620.2},{"company":"ZTE","credit_2025":1906.7,"credit_2026":1555.8,"credit_6g":652.1},{"company":"Nokia","credit_2025":1910.0,"credit_2026":1435.0,"credit_6g":754.9},{"company":"Samsung","credit_2025":1852.1,"credit_2026":1482.3,"credit_6g":758.5},{"company":"CATT/Datang","credit_2025":1278.6,"credit_2026":1276.5,"credit_6g":633.2},{"company":"vivo","credit_2025":1144.7,"credit_2026":1076.9,"credit_6g":668.9},{"company":"Qualcomm","credit_2025":1052.1,"credit_2026":990.0,"credit_6g":425.3},{"company":"OPPO","credit_2025":789.6,"credit_2026":1057.3,"credit_6g":587.8},{"company":"LG Electronics","credit_2025":792.3,"credit_2026":970.2,"credit_6g":586.8},{"company":"Xiaomi","credit_2025":788.6,"credit_2026":787.3,"credit_6g":428.1},{"company":"Lenovo","credit_2025":722.6,"credit_2026":841.2,"credit_6g":395.3},{"company":"NTT DOCOMO","credit_2025":642.6,"credit_2026":748.0,"credit_6g":420.6},{"company":"Apple","credit_2025":627.5,"credit_2026":714.4,"credit_6g":442.6},{"company":"InterDigital","credit_2025":589.2,"credit_2026":745.3,"credit_6g":499.5},{"company":"NEC","credit_2025":614.6,"credit_2026":709.4,"credit_6g":277.4},{"company":"China Telecom","credit_2025":602.6,"credit_2026":635.7,"credit_6g":330.9},{"company":"MediaTek","credit_2025":448.8,"credit_2026":511.9,"credit_6g":252.1},{"company":"China Mobile","credit_2025":406.7,"credit_2026":528.1,"credit_6g":374.9},{"company":"Ofinno","credit_2025":275.5,"credit_2026":611.1,"credit_6g":281.6},{"company":"ETRI","credit_2025":288.7,"credit_2026":554.4,"credit_6g":317.2},{"company":"Google","credit_2025":302.7,"credit_2026":408.3,"credit_6g":207.0},{"company":"Sharp","credit_2025":313.3,"credit_2026":354.3,"credit_6g":121.6},{"company":"Spreadtrum/UNISOC","credit_2025":231.2,"credit_2026":337.8,"credit_6g":158.0},{"company":"Sony","credit_2025":234.0,"credit_2026":327.7,"credit_6g":158.4}],"sixg":[{"company":"Huawei","year":2025,"credit_6g":93.9},{"company":"Huawei","year":2026,"credit_6g":804.3},{"company":"Samsung","year":2025,"credit_6g":105.2},{"company":"Samsung","year":2026,"credit_6g":653.4},{"company":"Nokia","year":2025,"credit_6g":109.7},{"company":"Nokia","year":2026,"credit_6g":645.2},{"company":"vivo","year":2025,"credit_6g":98.1},{"company":"vivo","year":2026,"credit_6g":570.8},{"company":"ZTE","year":2025,"credit_6g":108.0},{"company":"ZTE","year":2026,"credit_6g":544.1},{"company":"CATT/Datang","year":2025,"credit_6g":100.6},{"company":"CATT/Datang","year":2026,"credit_6g":532.6},{"company":"Ericsson","year":2025,"credit_6g":104.5},{"company":"Ericsson","year":2026,"credit_6g":515.6},{"company":"OPPO","year":2025,"credit_6g":86.8},{"company":"OPPO","year":2026,"credit_6g":501.0},{"company":"LG Electronics","year":2025,"credit_6g":101.8},{"company":"LG Electronics","year":2026,"credit_6g":485.0},{"company":"InterDigital","year":2025,"credit_6g":79.9},{"company":"InterDigital","year":2026,"credit_6g":419.6},{"company":"Apple","year":2025,"credit_6g":86.2},{"company":"Apple","year":2026,"credit_6g":356.4},{"company":"Xiaomi","year":2025,"credit_6g":84.1},{"company":"Xiaomi","year":2026,"credit_6g":344.0},{"company":"Qualcomm","year":2025,"credit_6g":84.9},{"company":"Qualcomm","year":2026,"credit_6g":340.4},{"company":"NTT DOCOMO","year":2025,"credit_6g":75.2},{"company":"NTT DOCOMO","year":2026,"credit_6g":345.5},{"company":"Lenovo","year":2025,"credit_6g":80.5},{"company":"Lenovo","year":2026,"credit_6g":314.8},{"company":"China Mobile","year":2025,"credit_6g":31.4},{"company":"China Mobile","year":2026,"credit_6g":343.5},{"company":"China Telecom","year":2025,"credit_6g":57.9},{"company":"China Telecom","year":2026,"credit_6g":273.0},{"company":"ETRI","year":2025,"credit_6g":45.8},{"company":"ETRI","year":2026,"credit_6g":271.4},{"company":"Ofinno","year":2025,"credit_6g":50.0},{"company":"Ofinno","year":2026,"credit_6g":231.6},{"company":"NEC","year":2025,"credit_6g":64.8},{"company":"NEC","year":2026,"credit_6g":212.7}],"leaders":[{"theme":"AI/ML 智慧化","rank":1,"company":"Huawei","credit_2026":244},{"theme":"AI/ML 智慧化","rank":2,"company":"CATT/Datang","credit_2026":194},{"theme":"AI/ML 智慧化","rank":3,"company":"Samsung","credit_2026":164},{"theme":"AI/ML 智慧化","rank":4,"company":"Nokia","credit_2026":157},{"theme":"AI/ML 智慧化","rank":5,"company":"ZTE","credit_2026":154},{"theme":"感知 ISAC","rank":1,"company":"OPPO","credit_2026":137},{"theme":"感知 ISAC","rank":2,"company":"Huawei","credit_2026":119},{"theme":"感知 ISAC","rank":3,"company":"ZTE","credit_2026":114},{"theme":"感知 ISAC","rank":4,"company":"LG Electronics","credit_2026":107},{"theme":"感知 ISAC","rank":5,"company":"vivo","credit_2026":94},{"theme":"NTN 衛星","rank":1,"company":"Huawei","credit_2026":180},{"theme":"NTN 衛星","rank":2,"company":"ZTE","credit_2026":127},{"theme":"NTN 衛星","rank":3,"company":"vivo","credit_2026":109},{"theme":"NTN 衛星","rank":4,"company":"CATT/Datang","credit_2026":105},{"theme":"NTN 衛星","rank":5,"company":"Qualcomm","credit_2026":102},{"theme":"節能／低功耗喚醒","rank":1,"company":"ZTE","credit_2026":78},{"theme":"節能／低功耗喚醒","rank":2,"company":"Ericsson","credit_2026":71},{"theme":"節能／低功耗喚醒","rank":3,"company":"vivo","credit_2026":59},{"theme":"節能／低功耗喚醒","rank":4,"company":"Huawei","credit_2026":53},{"theme":"節能／低功耗喚醒","rank":5,"company":"Nokia","credit_2026":46},{"theme":"Ambient IoT","rank":1,"company":"Huawei","credit_2026":157},{"theme":"Ambient IoT","rank":2,"company":"Ericsson","credit_2026":106},{"theme":"Ambient IoT","rank":3,"company":"OPPO","credit_2026":100},{"theme":"Ambient IoT","rank":4,"company":"LG Electronics","credit_2026":77},{"theme":"Ambient IoT","rank":5,"company":"ZTE","credit_2026":68},{"theme":"MIMO／波束／CSI","rank":1,"company":"ZTE","credit_2026":78},{"theme":"MIMO／波束／CSI","rank":2,"company":"Huawei","credit_2026":76},{"theme":"MIMO／波束／CSI","rank":3,"company":"Samsung","credit_2026":72},{"theme":"MIMO／波束／CSI","rank":4,"company":"CATT/Datang","credit_2026":66},{"theme":"MIMO／波束／CSI","rank":5,"company":"Ericsson","credit_2026":61},{"theme":"波形／幀結構／編碼","rank":1,"company":"Qualcomm","credit_2026":72},{"theme":"波形／幀結構／編碼","rank":2,"company":"ZTE","credit_2026":59},{"theme":"波形／幀結構／編碼","rank":3,"company":"Apple","credit_2026":57},{"theme":"波形／幀結構／編碼","rank":4,"company":"Huawei","credit_2026":57},{"theme":"波形／幀結構／編碼","rank":5,"company":"NTT DOCOMO","credit_2026":56},{"theme":"全雙工／SBFD","rank":1,"company":"Huawei","credit_2026":12},{"theme":"全雙工／SBFD","rank":2,"company":"ZTE","credit_2026":11},{"theme":"全雙工／SBFD","rank":3,"company":"CATT/Datang","credit_2026":11},{"theme":"全雙工／SBFD","rank":4,"company":"Samsung","credit_2026":6},{"theme":"全雙工／SBFD","rank":5,"company":"Ofinno","credit_2026":6}],"profile":[{"company":"Huawei","rank":1,"theme":"網路架構／QoS","credit_2025_26":854},{"company":"Huawei","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":433},{"company":"Huawei","rank":3,"theme":"NTN 衛星","credit_2025_26":383},{"company":"Huawei","rank":4,"theme":"Ambient IoT","credit_2025_26":364},{"company":"Ericsson","rank":1,"theme":"網路架構／QoS","credit_2025_26":653},{"company":"Ericsson","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":304},{"company":"Ericsson","rank":3,"theme":"NTN 衛星","credit_2025_26":263},{"company":"Ericsson","rank":4,"theme":"移動性／LTM","credit_2025_26":234},{"company":"ZTE","rank":1,"theme":"網路架構／QoS","credit_2025_26":621},{"company":"ZTE","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":380},{"company":"ZTE","rank":3,"theme":"NTN 衛星","credit_2025_26":271},{"company":"ZTE","rank":4,"theme":"節能／低功耗喚醒","credit_2025_26":257},{"company":"Nokia","rank":1,"theme":"網路架構／QoS","credit_2025_26":744},{"company":"Nokia","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":361},{"company":"Nokia","rank":3,"theme":"節能／低功耗喚醒","credit_2025_26":219},{"company":"Nokia","rank":4,"theme":"NTN 衛星","credit_2025_26":218},{"company":"Samsung","rank":1,"theme":"網路架構／QoS","credit_2025_26":752},{"company":"Samsung","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":308},{"company":"Samsung","rank":3,"theme":"NTN 衛星","credit_2025_26":260},{"company":"Samsung","rank":4,"theme":"節能／低功耗喚醒","credit_2025_26":193},{"company":"CATT/Datang","rank":1,"theme":"網路架構／QoS","credit_2025_26":351},{"company":"CATT/Datang","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":333},{"company":"CATT/Datang","rank":3,"theme":"NTN 衛星","credit_2025_26":237},{"company":"CATT/Datang","rank":4,"theme":"移動性／LTM","credit_2025_26":166},{"company":"vivo","rank":1,"theme":"網路架構／QoS","credit_2025_26":352},{"company":"vivo","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":282},{"company":"vivo","rank":3,"theme":"NTN 衛星","credit_2025_26":270},{"company":"vivo","rank":4,"theme":"節能／低功耗喚醒","credit_2025_26":215},{"company":"Qualcomm","rank":1,"theme":"網路架構／QoS","credit_2025_26":349},{"company":"Qualcomm","rank":2,"theme":"NTN 衛星","credit_2025_26":245},{"company":"Qualcomm","rank":3,"theme":"AI/ML 智慧化","credit_2025_26":183},{"company":"Qualcomm","rank":4,"theme":"移動性／LTM","credit_2025_26":120},{"company":"OPPO","rank":1,"theme":"網路架構／QoS","credit_2025_26":296},{"company":"OPPO","rank":2,"theme":"Ambient IoT","credit_2025_26":200},{"company":"OPPO","rank":3,"theme":"AI/ML 智慧化","credit_2025_26":196},{"company":"OPPO","rank":4,"theme":"感知 ISAC","credit_2025_26":192},{"company":"LG Electronics","rank":1,"theme":"網路架構／QoS","credit_2025_26":312},{"company":"LG Electronics","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":189},{"company":"LG Electronics","rank":3,"theme":"感知 ISAC","credit_2025_26":137},{"company":"LG Electronics","rank":4,"theme":"Ambient IoT","credit_2025_26":131},{"company":"Xiaomi","rank":1,"theme":"網路架構／QoS","credit_2025_26":218},{"company":"Xiaomi","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":150},{"company":"Xiaomi","rank":3,"theme":"感知 ISAC","credit_2025_26":147},{"company":"Xiaomi","rank":4,"theme":"NTN 衛星","credit_2025_26":141},{"company":"Lenovo","rank":1,"theme":"網路架構／QoS","credit_2025_26":218},{"company":"Lenovo","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":170},{"company":"Lenovo","rank":3,"theme":"移動性／LTM","credit_2025_26":137},{"company":"Lenovo","rank":4,"theme":"Ambient IoT","credit_2025_26":123},{"company":"NTT DOCOMO","rank":1,"theme":"網路架構／QoS","credit_2025_26":204},{"company":"NTT DOCOMO","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":199},{"company":"NTT DOCOMO","rank":3,"theme":"節能／低功耗喚醒","credit_2025_26":135},{"company":"NTT DOCOMO","rank":4,"theme":"NTN 衛星","credit_2025_26":126},{"company":"Apple","rank":1,"theme":"網路架構／QoS","credit_2025_26":197},{"company":"Apple","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":158},{"company":"Apple","rank":3,"theme":"NTN 衛星","credit_2025_26":89},{"company":"Apple","rank":4,"theme":"MIMO／波束／CSI","credit_2025_26":81},{"company":"InterDigital","rank":1,"theme":"網路架構／QoS","credit_2025_26":244},{"company":"InterDigital","rank":2,"theme":"AI/ML 智慧化","credit_2025_26":193},{"company":"InterDigital","rank":3,"theme":"感知 ISAC","credit_2025_26":121},{"company":"InterDigital","rank":4,"theme":"Ambient IoT","credit_2025_26":91}]};
+const fmt = (v) => Math.round(v).toLocaleString('en-US');
+const pct = (v) => (v > 0 ? '+' : '') + Math.round(v) + '%';
+const PAL = ['#2563eb', '#7c3aed', '#db2777', '#ea580c', '#d97706', '#16a34a', '#0d9488', '#0891b2', '#4f46e5', '#e11d48'];
+const $ = (id) => document.getElementById(id);
+const sum = (a, f) => a.reduce((s, r) => s + f(r), 0);
+
+// 指標
+const tot = (y) => sum(DATA.groups.filter((r) => r.year === y), (r) => r.docs);
+const gen = (g, y) => sum(DATA.themes.filter((r) => r.gen === g && r.year === y), (r) => r.docs);
+const d25 = tot(2025), d26 = tot(2026), g25 = gen('6G', 2025), g26 = gen('6G', 2026), a25 = gen('5G-Advanced', 2025), a26 = gen('5G-Advanced', 2026);
+$('h6g').textContent = fmt(g26); $('hMult').textContent = (g26 / g25).toFixed(1); $('hShare').textContent = (g26 / d26 * 100).toFixed(1) + '%';
+$('h5ga').textContent = Math.round((1 - a26 / a25) * 100) + '%';
+$('kTotal').textContent = fmt(d26); $('kTotal25').textContent = fmt(d25);
+$('k6g').textContent = fmt(g26); $('k6g25').textContent = fmt(g25);
+$('kShare').textContent = (g26 / d26 * 100).toFixed(1) + '%'; $('kShare25').textContent = (g25 / d25 * 100).toFixed(1) + '%';
+$('k5ga').textContent = pct((a26 / a25 - 1) * 100);
+
+// 成對長條
+function pairRows(el, rows, multi) {
+  const max = Math.max(1, ...rows.map((r) => Math.max(r.a, r.b)));
+  el.replaceChildren(...rows.map((r, i) => {
+    const c = multi ? PAL[i % PAL.length] : '#2563eb';
+    const row = document.createElement('div'); row.className = 'row';
+    if (r.onClick) { row.style.cursor = 'pointer'; row.onclick = r.onClick; }
+    row.title = r.tip;
+    const n = document.createElement('div'); n.className = 'name'; n.textContent = r.label;
+    const bars = document.createElement('div'); bars.className = 'bars';
+    for (const [v, op, txt] of [[r.a, .3, ''], [r.b, 1, r.text]]) {
+      const b = document.createElement('div'); b.className = 'bar';
+      const i_ = document.createElement('i'); i_.style.width = `calc(${(v / max) * 82}% )`; i_.style.background = c; i_.style.opacity = op;
+      const s = document.createElement('span'); s.textContent = txt;
+      b.append(i_, s); bars.appendChild(b);
+    }
+    row.append(n, bars); return row;
+  }));
+}
+function singleRows(el, rows) {
+  const max = Math.max(1, ...rows.map((r) => r.v));
+  el.replaceChildren(...rows.map((r, i) => {
+    const row = document.createElement('div'); row.className = 'row';
+    const n = document.createElement('div'); n.className = 'name'; n.textContent = r.label;
+    const b = document.createElement('div'); b.className = 'bar single';
+    const i_ = document.createElement('i'); i_.style.width = `${(r.v / max) * 82}%`; i_.style.background = '#ea580c'; i_.style.opacity = i === 0 ? 1 : .75;
+    const s = document.createElement('span'); s.textContent = fmt(r.v);
+    b.append(i_, s); row.append(n, b); return row;
+  }));
+}
+function chips(el, opts, cur, pick) {
+  el.replaceChildren(...opts.map(([k, l]) => { const b = document.createElement('button'); b.className = 'chip'; b.textContent = l; b.setAttribute('aria-pressed', String(k === cur)); b.onclick = () => pick(k); return b; }));
+}
+const chg = (a, b) => (a ? pct((b / a - 1) * 100) : '新');
+
+// 議題
+const names = [...new Set(DATA.themes.map((r) => r.theme))];
+const ts = (t, y, g) => sum(DATA.themes.filter((r) => r.theme === t && r.year === y && (!g || r.gen === g)), (r) => r.docs);
+const leadThemes = [...new Set(DATA.leaders.map((r) => r.theme))];
+let tmode = 'all', lead = leadThemes[0], csort = 'y26';
+function drawThemes() {
+  chips($('tmode'), [['all', '全部提案'], ['g6', '只看 6G']], tmode, (k) => { tmode = k; drawThemes(); });
+  const g6 = tmode === 'g6';
+  $('tnote').textContent = g6 ? '6G 研究約在 2025 年下半年才在各工作組啟動，2025 年多數議題只有零星 6G 提案；2025 年不到 100 份的議題不顯示成長率。' : '含 5G-Advanced、6G 與維護／修正。';
+  const rows = names.map((t) => { const a = ts(t, 2025, g6 ? '6G' : null), b = ts(t, 2026, g6 ? '6G' : null);
+    const txt = g6 ? (a >= 100 ? `${fmt(b)}（2025：${fmt(a)}，${chg(a, b)}）` : `${fmt(b)}（2025：${fmt(a)}）`) : `${fmt(b)}（${chg(a, b)}）`;
+    return { label: t, a, b, text: txt, tip: `${t}：2025 年 ${fmt(a)} 份，2026 年 ${fmt(b)} 份`,
+      onClick: leadThemes.includes(t) ? () => { lead = t; drawLeaders(); $('leaders').scrollIntoView({ behavior: 'smooth' }); } : null }; })
+    .filter((r) => r.a + r.b > 0).sort((p, q) => q.b - p.b);
+  pairRows($('themeChart'), rows, true);
+}
+function drawLeaders() {
+  chips($('leadBar'), leadThemes.map((t) => [t, t]), lead, (k) => { lead = k; drawLeaders(); });
+  singleRows($('leadChart'), DATA.leaders.filter((r) => r.theme === lead).sort((a, b) => a.rank - b.rank).map((r) => ({ label: r.company, v: r.credit_2026 })));
+}
+function drawCompanies() {
+  chips($('csort'), [['y26', '依 2026 提案'], ['chg', '依成長率'], ['g6', '依 6G 提案']], csort, (k) => { csort = k; drawCompanies(); });
+  const rows = DATA.companies.map((r) => ({ ...r, chg: (r.credit_2026 / r.credit_2025 - 1) * 100 }));
+  const key = { y26: 'credit_2026', chg: 'chg', g6: 'credit_6g' }[csort];
+  rows.sort((p, q) => q[key] - p[key]);
+  pairRows($('coChart'), rows.map((r) => ({ label: r.company, a: r.credit_2025, b: r.credit_2026,
+    text: csort === 'g6' ? `${fmt(r.credit_2026)}（6G ${fmt(r.credit_6g)}）` : `${fmt(r.credit_2026)}（${pct(r.chg)}）`,
+    tip: `${r.company}：2025 年 ${fmt(r.credit_2025)}，2026 年 ${fmt(r.credit_2026)}，兩年 6G ${fmt(r.credit_6g)}` })), false);
+}
+function drawSixg() {
+  const m = new Map();
+  for (const r of DATA.sixg) { const o = m.get(r.company) || { a: 0, b: 0 }; if (r.year === 2025) o.a = r.credit_6g; else o.b = r.credit_6g; m.set(r.company, o); }
+  const rows = [...m].map(([c, o]) => ({ label: c, a: o.a, b: o.b, text: fmt(o.a + o.b), tip: `${c}：2025 年 ${fmt(o.a)}，2026 年 ${fmt(o.b)}` })).sort((p, q) => (q.a + q.b) - (p.a + p.b));
+  pairRows($('sixgChart'), rows, false);
+}
+function drawGroups() {
+  const gs = [...new Set(DATA.groups.map((r) => r.group))];
+  const f = (g, y) => DATA.groups.find((r) => r.group === g && r.year === y) || { docs: 0, meetings: 0 };
+  pairRows($('groupChart'), gs.map((g) => ({ label: g, a: f(g, 2025).docs, b: f(g, 2026).docs, text: `${fmt(f(g, 2026).docs)}（${chg(f(g, 2025).docs, f(g, 2026).docs)}）`,
+    tip: `${g}：2025 年 ${fmt(f(g, 2025).docs)} 份（${f(g, 2025).meetings} 場），2026 年 ${fmt(f(g, 2026).docs)} 份（${f(g, 2026).meetings} 場）` })), true);
+}
+function drawProfile() {
+  const cos = [...new Set(DATA.profile.map((r) => r.company))];
+  const t = document.createElement('table');
+  const hr = t.createTHead().insertRow();
+  ['公司', '第 1', '第 2', '第 3', '第 4'].forEach((h) => { const th = document.createElement('th'); th.textContent = h; hr.appendChild(th); });
+  const tb = t.createTBody();
+  for (const c of cos) {
+    const tr = tb.insertRow(); const td = tr.insertCell(); td.textContent = c; td.style.fontWeight = '600';
+    DATA.profile.filter((r) => r.company === c).sort((a, b) => a.rank - b.rank).forEach((r) => { tr.insertCell().textContent = `${r.theme} ${fmt(r.credit_2025_26)}`; });
+  }
+  $('profileTable').replaceChildren(t);
+}
+drawThemes(); drawLeaders(); drawCompanies(); drawSixg(); drawGroups(); drawProfile();
+</script>
+</body>
+</html>
